@@ -1,3 +1,3 @@
 # Sensation
 
-[Discover today's sensation](nmssilva.github.io/sensation)
+[Discover today's sensation](http://nmssilva.github.io/sensation)
