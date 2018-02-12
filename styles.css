@@ -1,0 +1,44 @@
+@font-face {
+	font-family: "Sansation_Light";
+	src: url("./sansation/Sansation_Light.ttf");
+}
+
+@font-face {
+	font-family: "Sansation_Bold";
+	src: url("./sansation/Sansation_Bold.ttf");
+}
+
+html, body {
+  height:100%;
+}
+
+.bg{
+    /* bottom, image */
+    /* background: url(bg.jpg); */
+    background-position: center center; 
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+.center {
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 37%;
+  width: 100%;  
+}
+
+a{
+}
+
+.intro{
+	color:white;
+	font-size: 70px;
+	font-family: Sansation_Light;
+}
+
+.sensation{
+	color:white;
+	font-size: 100px;
+	font-family: Sansation_Bold;
+}
