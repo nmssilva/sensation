@@ -14,7 +14,7 @@ html, body {
 
 .bg{
     /* bottom, image */
-    /* background: url(bg.jpg); */
+    background-color: : #D3D3D3;
     background-position: center center; 
     background-repeat:no-repeat;
     background-size: cover;
@@ -41,4 +41,14 @@ a{
 	color:white;
 	font-size: 100px;
 	font-family: Sansation_Bold;
+}
+
+.placeholder { 
+	display: inline-block; 
+}
+
+.placeholder img {
+     visibility: hidden;
+     background: url('spinner.gif') center center transparent;
+     vertical-align: bottom;
 }

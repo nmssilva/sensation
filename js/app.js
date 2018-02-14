@@ -83,8 +83,18 @@ function getImage(sensation) {
           			var width = imageList[i]['image']['width'];
 	      			var height = imageList[i]['image']['height'];
           			if(width > height &&  width > 1920 && height > 1080) {
+          				
 		    			document.body.style["background-image"] = "url( " + imageList[i]['link'] + ")";
 		    			break;
+		    			
+
+/*						var newImg = new Image;
+						newImg.onload = function() {
+							document.body.style["background-image"] = this.src;
+						};
+						newImg.src = imageList[i]['link'];
+						break;
+*/
           			}
 				}
 
@@ -93,7 +103,7 @@ function getImage(sensation) {
           	
 }        },
         error: function () {
-            document.body.style.background = "url(bg.jpg)";
+            document.body.style.background = "url(../bg.jpg)";
         }
     });
 }
@@ -105,7 +115,9 @@ window.onload = function () {
 	num = hashCode(num.toString());
 	readIntroFile(baseUrl + "intros.txt", num);
 	readTextFile(baseUrl + "sensations.txt", num);
+	document.body.style.backgroundColor = "grey";
 	getImage(sensation);
-    document.getElementById("sensation").innerHTML = sensation + " sensation";
+	document.getElementById("sensation").innerHTML = sensation + " sensation";
+    console.log("end")
 
 }
