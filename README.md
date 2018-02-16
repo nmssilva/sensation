@@ -6,5 +6,6 @@
 - Site prototype ☑️
 - Background image changes with the actual sensation ☑️
 - Loading Screen 
+- Segmented sentence maker
 - Dictionary definition of today's sensation
 - Sounds relative to todays sensation 🤔🤔🤔🤔
