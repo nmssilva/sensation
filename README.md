@@ -4,6 +4,7 @@
 
 ### To-do list:
 - Site prototype ☑️
-- Background image changes with the actual sensation
+- Background image changes with the actual sensation ☑️
+- Loading Screen 
 - Dictionary definition of today's sensation
-- Sounds relative to todays sensation 🤔🤔🤔
+- Sounds relative to todays sensation 🤔🤔🤔🤔
