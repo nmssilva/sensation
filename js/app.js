@@ -10,30 +10,27 @@ var minWidth = 1920
 var sensation, imageUrl;
 
 function hashCode(num) {
-  var hash = 0, i, chr;
-  if (num.length === 0) return hash;
-  for (i = 0; i < num.length; i++) {
-    chr   = num.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
+    var hash = 0,
+        i, chr;
+    if (num.length === 0) return hash;
+    for (i = 0; i < num.length; i++) {
+        chr = num.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
 };
 
-function readIntroFile(file, num)
-{
+function readIntroFile(file, num) {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
                 var words = allText.split("\n");
-                var intro = words[Math.abs(num%(words.length-1))];
-                
+                var intro = words[Math.abs(num % (words.length - 1))];
+
                 document.getElementById("intro").innerHTML = intro + "...";
             }
         }
@@ -41,20 +38,15 @@ function readIntroFile(file, num)
     rawFile.send(null);
 }
 
-function readTextFile(file,num)
-{
+function readTextFile(file, num) {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
                 var words = allText.split("\n");
-                sensation = words[Math.floor((Math.random() * words.length) + 1)];
-                
+                sensation = words[Math.abs(num % (words.length - 1))];
             }
         }
     }
@@ -62,62 +54,62 @@ function readTextFile(file,num)
 }
 
 function getImage(sensation) {
-	$.ajax( {
-		'url' : apiBaseUrl,
-		'type': 'GET',
-		'data':     {
-	    	"key" : imageApikey,
-	    	"cx" : searchEngineId,
-	    	"searchType" : searchType,
-	    	"imgSize" : imgSize,
-	    	'q' : sensation,
-	    },
+    $.ajax({
+        'url': apiBaseUrl,
+        'type': 'GET',
+        'data': {
+            "key": imageApikey,
+            "cx": searchEngineId,
+            "searchType": searchType,
+            "imgSize": imgSize,
+            'q': sensation,
+        },
         contentType: 'application/json; charset=utf-8',
-    	success: function (response) {
-          //  alert(response.status);
-          	var imageList = response['items'];
-          	i = 0;
-          	// Get a suitable image
-          	while(true) {
-          		if (imageList[i] != null) {
-          			var width = imageList[i]['image']['width'];
-	      			var height = imageList[i]['image']['height'];
-          			if(width > height &&  width > 1920 && height > 1080) {
-          				
-		    			document.body.style["background-image"] = "url( " + imageList[i]['link'] + ")";
-		    			break;
-		    			
+        success: function(response) {
+            //  alert(response.status);
+            var imageList = response['items'];
+            i = 0;
+            // Get a suitable image
+            while (true) {
+                if (imageList[i] != null) {
 
-/*						var newImg = new Image;
-						newImg.onload = function() {
-							document.body.style["background-image"] = this.src;
-						};
-						newImg.src = imageList[i]['link'];
-						break;
-*/
-          			}
-				}
+                    console.log("ASD");
+                    var width = imageList[i]['image']['width'];
+                    var height = imageList[i]['image']['height'];
+                    //if (width > height && width >= 1920 && height >= 1080) {
+                        document.body.style["background-image"] = "url( " + imageList[i]['link'] + ")";
+                        break;
 
-	      		
-          		i++;
-          	
-}        },
-        error: function () {
-            document.body.style.background = "url(../bg.jpg)";
+
+                        /*            var newImg = new Image;
+                                    newImg.onload = function() {
+                                      document.body.style["background-image"] = this.src;
+                                    };
+                                    newImg.src = imageList[i]['link'];
+                                    break;
+                        */
+                    //}
+                }
+
+                i++;
+
+            }
+        },
+        error: function() {
+            document.body.style.background = "url(https://raw.githubusercontent.com/nmssilva/sensation/master/bg.jpg)";
         }
     });
 }
 
-window.onload = function () {
-	
-	var d = new Date();
-	var num = d.getDate()*10000000+d.getMonth()*10000+d.getFullYear();
-	num = hashCode(num.toString());
-	readIntroFile(baseUrl + "intros.txt", num);
-	readTextFile(baseUrl + "sensations.txt", num);
-	document.body.style.backgroundColor = "grey";
-	getImage(sensation);
-	document.getElementById("sensation").innerHTML = sensation + " sensation";
-    console.log("end")
+window.onload = function() {
+
+    var d = new Date();
+    var num = d.getDate() * 10000000 + d.getMonth() * 10000 + d.getFullYear();
+    num = hashCode(num.toString());
+    readIntroFile(baseUrl + "misc/intros.txt", num);
+    readTextFile(baseUrl + "misc/sensations.txt", num);
+    document.body.style.backgroundColor = "grey";
+    getImage(sensation);
+    document.getElementById("sensation").innerHTML = sensation + " sensation";
 
 }
