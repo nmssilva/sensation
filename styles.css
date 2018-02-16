@@ -28,7 +28,9 @@ html, body {
   width: 100%;  
 }
 
-a{
+a {
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
 }
 
 .intro{
