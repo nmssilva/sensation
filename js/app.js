@@ -32,6 +32,7 @@ function readIntroFile(file, num) {
                 var intro = words[Math.abs(num % (words.length - 1))];
 
                 document.getElementById("intro").innerHTML = intro + "...";
+                document.getElementById("title").innerHTML += intro + "... ";
             }
         }
     }
@@ -47,6 +48,9 @@ function readTextFile(file, num) {
                 var allText = rawFile.responseText;
                 var words = allText.split("\n");
                 sensation = words[Math.abs(num % (words.length - 1))];
+
+                document.getElementById("sensation").innerHTML = sensation + " sensation";
+                document.getElementById("title").innerHTML += sensation + " sensation :O";
             }
         }
     }
@@ -110,6 +114,5 @@ window.onload = function() {
     readTextFile(baseUrl + "misc/sensations.txt", num);
     document.body.style.backgroundColor = "grey";
     getImage(sensation);
-    document.getElementById("sensation").innerHTML = sensation + " sensation";
 
 }

@@ -30,19 +30,10 @@ a {
 .intro{
      color:white;
      font-size: 70px;
-     font-family: Sansation_Light;
+     font-family: Sansation_Bold;
 }
 .sensation{
      color:white;
      font-size: 100px;
      font-family: Sansation_Bold;
 }
-.placeholder {
-     display: inline-block;
-}
-.placeholder img {
-     visibility: hidden;
-     background: url('spinner.gif') center center transparent;
-     vertical-align: bottom;
-}
- 
