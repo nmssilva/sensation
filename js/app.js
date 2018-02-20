@@ -76,7 +76,6 @@ function getImage(sensation) {
             // Get a suitable image
             while (true) {
                 if (imageList[i] != null) {
-                    console.log("ASD");
                     var width = imageList[i]['image']['width'];
                     var height = imageList[i]['image']['height'];
                     //if (width > height && width >= 1920 && height >= 1080) {
