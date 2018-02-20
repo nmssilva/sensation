@@ -1,11 +1,11 @@
-var baseUrl = "https://raw.githubusercontent.com/nmssilva/sensation/master/"
+var baseUrl = "https://raw.githubusercontent.com/nmssilva/sensation/master/";
 
-var apiBaseUrl = "https://www.googleapis.com/customsearch/v1"
-var imageApikey = "AIzaSyB258Pcb4kRI4JtH4Q4KjRcLDAj22YxLOE"
-var searchEngineId = "009202958278043524580:1mrllu72sxk"
-var searchType = "image"
-var imgSize = "huge"
-var minWidth = 1920
+var apiBaseUrl = "https://www.googleapis.com/customsearch/v1";
+var imageApikey = "AIzaSyB258Pcb4kRI4JtH4Q4KjRcLDAj22YxLOE";
+var searchEngineId = "009202958278043524580:1mrllu72sxk";
+var searchType = "image";
+var imgSize = "huge";
+var minWidth = 1920;
 
 var sensation, imageUrl;
 
@@ -19,7 +19,7 @@ function hashCode(num) {
         hash |= 0; // Convert to 32bit integer
     }
     return hash;
-};
+}
 
 function readIntroFile(file, num) {
     var rawFile = new XMLHttpRequest();
@@ -35,7 +35,7 @@ function readIntroFile(file, num) {
                 document.getElementById("title").innerHTML += intro + "... ";
             }
         }
-    }
+    };
     rawFile.send(null);
 }
 
@@ -53,7 +53,7 @@ function readTextFile(file, num) {
                 document.getElementById("title").innerHTML += sensation + " sensation :O";
             }
         }
-    }
+    };
     rawFile.send(null);
 }
 
@@ -72,47 +72,57 @@ function getImage(sensation) {
         success: function(response) {
             //  alert(response.status);
             var imageList = response['items'];
-            i = 0;
+            var i = 0;
             // Get a suitable image
             while (true) {
                 if (imageList[i] != null) {
-
                     console.log("ASD");
                     var width = imageList[i]['image']['width'];
                     var height = imageList[i]['image']['height'];
                     //if (width > height && width >= 1920 && height >= 1080) {
+                    document.body.style["background-image"]= "url( " + imageList[i]['link'] + ")";
+                    var img = new Image();
+                    img.onload = function () {
+                        document.getElementById("loader").style.display = "none";
+                        document.getElementById("main").style.display = "block";
+                    };
+                    img.onerror = function () {
+                        document.body.style["background-image"] = "url(bg.jpg)";
+                        document.getElementById("loader").style.display = "none";
+                        document.getElementById("main").style.display = "block";
+                    };
+                    img.src = imageList[i]['link'];
+                    break;
+                }
+                i++;
+                    /*
                         document.body.style["background-image"] = "url( " + imageList[i]['link'] + ")";
                         break;
 
-
-                        /*            var newImg = new Image;
+                                    var newImg = new Image;
                                     newImg.onload = function() {
                                       document.body.style["background-image"] = this.src;
                                     };
                                     newImg.src = imageList[i]['link'];
                                     break;
-                        */
                     //}
                 }
-
                 i++;
-
+                */
             }
         },
         error: function() {
-            document.body.style.background = "url(https://raw.githubusercontent.com/nmssilva/sensation/master/bg.jpg)";
+            document.body.style["background-image"] = "url(bg.jpg)";
         }
     });
 }
 
 window.onload = function() {
-
     var d = new Date();
     var num = d.getDate() * 10000000 + d.getMonth() * 10000 + d.getFullYear();
     num = hashCode(num.toString());
+    document.body.style.backgroundColor = "grey";
     readIntroFile(baseUrl + "misc/intros.txt", num);
     readTextFile(baseUrl + "misc/sensations.txt", num);
-    document.body.style.backgroundColor = "grey";
     getImage(sensation);
-
-}
+};
