@@ -111,6 +111,8 @@ function getImage(sensation) {
             }
         },
         error: function() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("main").style.display = "block";
             document.body.style["background-image"] = "url(bg.jpg)";
         }
     });
