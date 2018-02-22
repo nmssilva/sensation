@@ -1,7 +1,8 @@
 var baseUrl = "https://raw.githubusercontent.com/nmssilva/sensation/master/";
 
 var apiBaseUrl = "https://www.googleapis.com/customsearch/v1";
-var imageApikey = "AIzaSyB258Pcb4kRI4JtH4Q4KjRcLDAj22YxLOE";
+var imageApikey = "AIzaSyBOasz8ZhCQiqPNnTvZyjveH_arTZnAvyw"; // nmssilva API key
+var backupApikey = "AIzaSyB258Pcb4kRI4JtH4Q4KjRcLDAj22YxLOE"; // alagoa API key
 var searchEngineId = "009202958278043524580:1mrllu72sxk";
 var searchType = "image";
 var imgSize = "huge";
@@ -59,62 +60,92 @@ function readTextFile(file, num) {
 
 function getImage(sensation) {
     $.ajax({
-        'url': apiBaseUrl,
-        'type': 'GET',
-        'data': {
-            "key": imageApikey,
-            "cx": searchEngineId,
-            "searchType": searchType,
-            "imgSize": imgSize,
-            'q': sensation,
-        },
-        contentType: 'application/json; charset=utf-8',
-        success: function(response) {
-            //  alert(response.status);
-            var imageList = response['items'];
-            var i = 0;
-            // Get a suitable image
-            while (true) {
-                if (imageList[i] != null) {
-                    var width = imageList[i]['image']['width'];
-                    var height = imageList[i]['image']['height'];
-                    //if (width > height && width >= 1920 && height >= 1080) {
-                    document.body.style["background-image"]= "url( " + imageList[i]['link'] + ")";
-                    var img = new Image();
-                    img.onload = function () {
-                        document.getElementById("loader").style.display = "none";
-                        document.getElementById("main").style.display = "block";
-                    };
-                    img.onerror = function () {
-                        document.body.style["background-image"] = "url(bg.jpg)";
-                        document.getElementById("loader").style.display = "none";
-                        document.getElementById("main").style.display = "block";
-                    };
-                    img.src = imageList[i]['link'];
-                    break;
-                }
-                i++;
-                    /*
+            'url': apiBaseUrl,
+            'type': 'GET',
+            'data': {
+                "key": imageApikey,
+                "cx": searchEngineId,
+                "searchType": searchType,
+                "imgSize": imgSize,
+                'q': sensation,
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                //  alert(response.status);
+                var imageList = response['items'];
+                var i = 0;
+                // Get a suitable image
+                while (true) {
+                    if (imageList[i] != null) {
+                        var width = imageList[i]['image']['width'];
+                        var height = imageList[i]['image']['height'];
+                        //if (width > height && width >= 1920 && height >= 1080) {
                         document.body.style["background-image"] = "url( " + imageList[i]['link'] + ")";
+                        var img = new Image();
+                        img.onload = function() {
+                            document.getElementById("loader").style.display = "none";
+                            document.getElementById("main").style.display = "block";
+                        };
+                        img.onerror = function() {
+                            document.body.style["background-image"] = "url(bg.jpg)";
+                            document.getElementById("loader").style.display = "none";
+                            document.getElementById("main").style.display = "block";
+                        };
+                        img.src = imageList[i]['link'];
                         break;
-
-                                    var newImg = new Image;
-                                    newImg.onload = function() {
-                                      document.body.style["background-image"] = this.src;
-                                    };
-                                    newImg.src = imageList[i]['link'];
-                                    break;
-                    //}
+                    }
+                    i++;
                 }
-                i++;
-                */
+            },
+            error: function() {
+                /*document.getElementById("loader").style.display = "none";
+                document.getElementById("main").style.display = "block";
+                document.body.style["background-image"] = "url(bg.jpg)";*/
+                $.ajax({
+                    'url': apiBaseUrl,
+                    'type': 'GET',
+                    'data': {
+                        "key": backupApikey,
+                        "cx": searchEngineId,
+                        "searchType": searchType,
+                        "imgSize": imgSize,
+                        'q': sensation,
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(response) {
+                        //  alert(response.status);
+                        var imageList = response['items'];
+                        var i = 0;
+                        // Get a suitable image
+                        while (true) {
+                            if (imageList[i] != null) {
+                                var width = imageList[i]['image']['width'];
+                                var height = imageList[i]['image']['height'];
+                                //if (width > height && width >= 1920 && height >= 1080) {
+                                document.body.style["background-image"] = "url( " + imageList[i]['link'] + ")";
+                                var img = new Image();
+                                img.onload = function() {
+                                    document.getElementById("loader").style.display = "none";
+                                    document.getElementById("main").style.display = "block";
+                                };
+                                img.onerror = function() {
+                                    document.body.style["background-image"] = "url(bg.jpg)";
+                                    document.getElementById("loader").style.display = "none";
+                                    document.getElementById("main").style.display = "block";
+                                };
+                                img.src = imageList[i]['link'];
+                                break;
+                            }
+                            i++;
+                        }
+                    },
+                    error: function() {
+                        /*document.getElementById("loader").style.display = "none";
+                        document.getElementById("main").style.display = "block";
+                        document.body.style["background-image"] = "url(bg.jpg)";*/
+                    }
+                });
             }
-        },
-        error: function() {
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("main").style.display = "block";
-            document.body.style["background-image"] = "url(bg.jpg)";
-        }
     });
 }
 
