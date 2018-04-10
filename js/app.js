@@ -48,7 +48,7 @@ function readTextFile(file, num) {
             if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
                 var words = allText.split("\n");
-                sensation = words[Math.abs(num % (words.length - 1))];
+                sensation = "inanimating";//words[Math.abs(num % (words.length - 1))];
 
                 document.getElementById("sensation").innerHTML = sensation + " sensation";
                 document.getElementById("title").innerHTML += sensation + " sensation :O";
