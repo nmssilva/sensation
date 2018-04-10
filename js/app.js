@@ -5,7 +5,7 @@ var imageApikey = "AIzaSyBOasz8ZhCQiqPNnTvZyjveH_arTZnAvyw"; // nmssilva API key
 var backupApikey = "AIzaSyB258Pcb4kRI4JtH4Q4KjRcLDAj22YxLOE"; // alagoa API key
 var searchEngineId = "009202958278043524580:1mrllu72sxk";
 var searchType = "image";
-var imgSize = "big";
+var imgSize = "huge";
 var minWidth = 1920;
 
 var sensation, imageUrl;
